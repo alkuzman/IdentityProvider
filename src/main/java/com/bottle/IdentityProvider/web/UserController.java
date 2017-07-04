@@ -2,6 +2,7 @@ package com.bottle.IdentityProvider.web;
 
 import com.bottle.IdentityProvider.model.User;
 import com.bottle.IdentityProvider.service.UserService;
+import com.bottle.IdentityProvider.web.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,11 @@ public class UserController {
 
     @GetMapping(params = "username")
     public User findByUsername(@RequestParam(required = true) String username) {
-        return this.userService.findByUsername(username);
+        User user = userService.findByUsername(username);
+        if (user == null) {
+            throw new ResourceNotFoundException();
+        }
+        return user;
     }
 
     @GetMapping
@@ -36,6 +41,10 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User findOne(@PathVariable Long id) {
-        return this.userService.findOne(id);
+        User user = userService.findOne(id);
+        if (user == null) {
+            throw new ResourceNotFoundException();
+        }
+        return user;
     }
 }
