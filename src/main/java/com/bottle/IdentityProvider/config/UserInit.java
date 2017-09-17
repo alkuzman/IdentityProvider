@@ -1,6 +1,7 @@
 package com.bottle.IdentityProvider.config;
 
 import com.bottle.IdentityProvider.model.Role;
+import com.bottle.IdentityProvider.model.TelephoneNumber;
 import com.bottle.IdentityProvider.model.User;
 import com.bottle.IdentityProvider.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,10 @@ public class UserInit {
             admin.setFirstName("admin");
             admin.setLastName("admin");
             admin.setAddress("Macedonia");
-            admin.setTelephone("077752584");
+            TelephoneNumber telephoneNumber = new TelephoneNumber();
+            telephoneNumber.setCountryCode("389");
+            telephoneNumber.setNumber("77752584");
+            admin.setTelephoneNumber(telephoneNumber);
             admin.setProfileImage("http://www.propertygaon.com/Public/Image/avatar_2x.jpg");
             userService.save(admin);
         }

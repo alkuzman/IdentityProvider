@@ -17,10 +17,7 @@ import javax.persistence.*;
         @Index(name = "user_index", columnList = "id"),
         @Index(name = "user_username_index", columnList = "username")
 })
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
     @NotEmpty
     @Column(name = "username")
     private String username;
@@ -40,8 +37,9 @@ public class User {
     @NotEmpty
     @Column(name = "name")
     private String name;
-    @Column(name = "telephone")
-    private String telephone;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "telephone_number")
+    private TelephoneNumber telephoneNumber;
     @Column(name = "address")
     private String address;
     @Enumerated(EnumType.STRING)
@@ -49,14 +47,6 @@ public class User {
     private Role role;
     @Column(name = "profile_image")
     private String profileImage;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -106,12 +96,12 @@ public class User {
         this.name = name;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public TelephoneNumber getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setTelephoneNumber(TelephoneNumber telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
     public String getAddress() {
